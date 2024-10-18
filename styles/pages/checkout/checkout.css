@@ -128,7 +128,7 @@
   display: none;
 } 
 
- .quantity-input {
+ /* .quantity-input {
   display: none;
 }
 .js-save-quantity {
@@ -151,7 +151,7 @@ display: initial;
 .is-editing-quantity .quantity-label
 {
   display: none;
-}
+} */
 
 @media (max-width: 1000px) {
   .delivery-options {
