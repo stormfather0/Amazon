@@ -401,10 +401,34 @@ console.log(result);  // Output the value of 'a'
 
 
 
+// Add an event listener to the Place your order button
+document.querySelector('.place-order-button').addEventListener('click', async () => {
+  const orderData = {
+    items: cart, // Cart items
+    total: totalPriceCents, // Total price in cents
+    deliveryOptions: [...document.querySelectorAll('.delivery-option-input:checked')].map(option => ({
+      deliveryType: option.classList[1],
+      deliveryDate: formateDate1(fiveDays), // Change this based on the selected option
+    })),
+  };
 
+  try {
+    const response = await fetch('http://localhost:3000/api/place-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    });
 
-
-
-
-
-
+    if (response.ok) {
+      const createdOrder = await response.json();
+      console.log('Order placed successfully:', createdOrder);
+      // Optionally, you can redirect the user or display a success message
+    } else {
+      console.error('Failed to place order:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error placing order:', error);
+  }
+});
